@@ -1,0 +1,30 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+
+       <section class="intro">
+        <div class="wrapintro">
+            <h1>log-out page</h1>
+            <h2 class="lead"><i class="fa fa-key"></i>  "ログアウトしますか？"</h2>
+
+         <form method='post' role="form" action="" class="login-form">
+
+
+                                {% csrf_token %}
+
+
+                                <div class="button mx-auto">
+                                    <button class="btn btn-lg btn-warning btn-blocck mx-auto" type="submit">
+                                        ログアウト
+
+                                    </button>
+
+                                    </div>
+                            </form>
+        </div>
+    </section>
+
+{% endblock %}

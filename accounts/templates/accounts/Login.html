@@ -1,0 +1,31 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <section class="intro">
+        <div class="wrapintro">
+            <h1>log-in page</h1>
+            <h2 class="lead"><i class="fa fa-key"></i>  "こちらからログインできます"</h2>
+            <form method='post' class="form-auth">
+
+                {% csrf_token %}
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i>
+                                        {% render_field form.login class='form_control' placeholder='ユーザーネーム' %}</span>
+
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
+                                        {% render_field form.password class='form_control' placeholder='パスワード' %}</span>
+
+
+
+                <div class="button mx-auto">
+                    <button class="btn btn-lg btn-primary btn-blocck mx-auto" type="submit">
+                        ログイン
+
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

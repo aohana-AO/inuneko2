@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+</head>
+<body class="layout-default">
+<header class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsWow"
+            aria-controls="navbarsWow" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container">
+        <!-- Begin Logo -->
+        <a class="navbar-brand" href="index.html">
+            <img style="width: 250px" src="" alt="-NeighbAc-">
+        </a>
+        <!-- End Logo -->
+        <!-- Begin Menu -->
+        <div class="collapse navbar-collapse" id="navbarsWow">
+            <!-- Begin Menu -->
+            {% if user.is_authenticated %}
+aaa
+
+
+
+
+                {% else %}
+
+
+
+
+                   iii
+
+                {% endif %}
+
+
+            uuu
+            <!-- End Menu -->
+        </div>
+    </div>
+</header>
+
+
+<div class="site-content">
+    <!-- Home Jumbotron
+    ================================================== -->
+    {% block content %}
+    {% endblock %}
+    <!-- Begin Footer
+    ================================================== -->
+
+    <!-- End Footer
+    ================================================== -->
+</div>
+
+</body>
+{% block js %}
+
+{% endblock %}
+</body>
+</html>

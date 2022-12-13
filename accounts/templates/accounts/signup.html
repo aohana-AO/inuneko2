@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+
+    <section class="intro">
+        <div class="wrapintro">
+            <h1>sign-up page</h1>
+            <h2 class="lead"><i class="fa fa-key"></i>  "こちらからサインアップできます"</h2>
+              <form method="post" class="form-auth">
+                    {% csrf_token %}
+
+
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i>
+                                        {% render_field form.username class='form_control' placeholder='ユーザーネーム' %}</span>
+
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
+                                        {% render_field form.password1 class='form_control' placeholder='パスワード' %}</span>
+
+
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
+                                        {% render_field form.password2 class='form_control' placeholder='パスワード(確認用)' %}</span>
+
+                  <br>
+                    <div class="button mx-auto">
+                        <button class="btn btn-lg btn-primary btn-blocck mx-auto " type="submit">
+                            登録する
+                        </button>
+
+                    </div>
+
+                </form>
+        </div>
+    </section>
+{% endblock %}
