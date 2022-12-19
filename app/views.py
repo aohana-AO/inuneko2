@@ -6,6 +6,7 @@ from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView
 
+import requests
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -95,3 +96,26 @@ class PostEditView(LoginRequiredMixin, View):
         return render(request, 'app/post_form.html', {
             'form': form
         })
+
+class APItati(View):
+    def inu(request):
+        url = 'https://dog.ceo/api/breeds/image/random'
+        # url = 'https://random.dog/doggos/image/random'
+        get_result = requests.get(url).json()
+        result = [get_result]
+        print(result)
+
+        return render(request, 'app/inu.html', {
+        'result': result
+    })
+    def sibainu(request):
+        import requests
+
+        url = 'http://shibe.online/api/shibes?count=[1-100]&urls=[true/false]&httpsUrls=[true/false]'
+        get_result = requests.get(url).json()
+        result = ["https://cdn.shibe.online/shibes/" + get_result[0] + ".jpg"]
+        print(result)
+        return render(request, 'app/sibainu.html', {
+            'result': result
+        })
+
