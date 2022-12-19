@@ -15,6 +15,5 @@ class Health(models.Model):
     title = models.CharField("タイトル", max_length=200)
     content = models.TextField("本文")
     image = models.ImageField(upload_to='images', verbose_name='イメージ画像', null=True, blank=True)
-    problemCategory = models.TextField("カテゴリー")
-    peopleNum = models.IntegerField("カロリー計算")
+    category = models.TextField("カテゴリー")
     created = models.DateTimeField("作成日", default=timezone.now)
