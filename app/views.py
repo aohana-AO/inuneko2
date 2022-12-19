@@ -56,3 +56,42 @@ class PostDeleteView(View):
         post_data = Health.objects.get(id=self.kwargs['pk'])
         post_data.delete()
         return redirect('index')
+
+class PostEditView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        post_data = Health.objects.get(id=self.kwargs['pk'])
+        form = PostForm(
+            request.POST or None,
+            initial={
+                'title': post_data.title,
+                'content': post_data.content,
+                'author': post_data.author,
+                'category': post_data.category,
+
+
+            }
+
+        )
+        return render(request, 'app/post_form.html', {
+            'form': form
+        })
+
+    def post(self, request, *args, **kwargs):
+
+        form = PostForm(request.POST or None)
+
+        if form.is_valid():
+            post_data = Health.objects.get(id=self.kwargs['pk'])
+            post_data.author = request.user
+            post_data.title = form.cleaned_data['title']
+            post_data.content = form.cleaned_data['content']
+            post_data.category = form.cleaned_data['category']
+
+            if request.FILES:
+                post_data.image = request.FILES.get('image')
+            post_data.save()
+            return redirect('post_detail', self.kwargs['pk'])
+
+        return render(request, 'app/post_form.html', {
+            'form': form
+        })
