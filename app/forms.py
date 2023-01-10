@@ -21,4 +21,3 @@ class PostForm(forms.Form):
         required=True,
         widget=forms.widgets.Select
     )
-
