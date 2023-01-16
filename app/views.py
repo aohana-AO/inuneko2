@@ -13,7 +13,35 @@ import requests
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'app/index.html', )
+        post_data = Health.objects.order_by('-id')
+        form = PostForm(request.POST or None)
+        return render(request, 'app/index.html', {
+            'post_data': post_data, 'form': form
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST or None)
+        print(1)
+        print(2)
+        problemcategory = request.POST["problemcategory"]
+        print(problemcategory)
+        purpose = request.POST["purpose"]
+        print(purpose)
+        status = request.POST["status"]
+        print(status)
+        problemsize = request.POST["problemSize"]
+        print(problemsize)
+        organization = request.POST["organization"]
+        print(organization)
+        post_data = Health.objects.filter(problemCategory=problemcategory, purpose=purpose, status=status,
+                                        problemSize=problemsize, organization=organization)
+
+        if request.FILES:
+            post_data.image = request.FILES.get('image')
+
+        return render(request, 'app/index.html', {
+            'post_data': post_data, 'form': form
+        })
 
 
 class CreatePost(LoginRequiredMixin, View):
@@ -156,15 +184,15 @@ class Calory(View):
         # DER:1日あたりのエネルギー要求量
         def DER(rer):
             while True:
-                q1 = int(input("犬なら1、猫なら2を入力:"))
+                q1 = int(request.POST['inuneko'])
                 # 計算したいのが犬ならば
                 if q1 == 1:
                     while True:
-                        dog_q1 = request.POST['q1']
+                        dog_q1 = int(request.POST['select'])
 
                         # 成犬ならば
                         if dog_q1 == 1:
-                            dog_q2 = int(input("去勢済なら1、していないなら2を入力:"))
+                            dog_q2 = int(request.POST['q1'])
                             if dog_q2 == 1:
                                 der = int(rer * 1.6)
                                 return der
@@ -180,7 +208,7 @@ class Calory(View):
                         # 子犬ならば
                         elif dog_q1 == 2:
                             while True:
-                                born = int(input("生後何ヵ月?12以内で入力:"))
+                                born = int(request.POST['q2'])
                                 if born < 4:
                                     der = int(rer * 3.0)
                                     return der
@@ -207,11 +235,11 @@ class Calory(View):
                 # 猫の場合
                 elif q1 == 2:
                     while True:
-                        cat_q1 = int(input("成猫なら1、生後12ヶ月以内なら2、高齢猫なら3、肥満傾向なら4を入力:"))
+                        cat_q1 = int(request.POST['select'])
 
                         # 成猫の場合
                         if cat_q1 == 1:
-                            cat_q2 = int(input("去勢済なら1、していないなら2を入力:"))
+                            cat_q2 = int(request.POST['q1'])
 
                             if cat_q2 == 1:
                                 der = int(rer * 1.2)
@@ -228,7 +256,7 @@ class Calory(View):
                         # 子猫の場合
                         elif cat_q1 == 2:
                             while True:
-                                born = int(input("生後何ヵ月?12以内で入力:"))
+                                born = int(request.POST['q2'])
                                 if born < 4:
                                     der = int(rer * 3.0)
                                     return der
@@ -259,12 +287,12 @@ class Calory(View):
 
                 # 入力エラーの場合
                 else:
-                    print("1または2で入力")
+                    print("1または2で入力 犬猫")
                     continue
 
         # 一日の必要なカロリーを計算
         def FOOD(der):
-            g_kcal = int(input("与えているフードの100gあたりのkcalを入力してください:"))
+            g_kcal = int(request.POST['calory'])
             one_kcal = float(g_kcal / 100)
             food = int(der / one_kcal)
             return food
@@ -275,6 +303,6 @@ class Calory(View):
 
         print("約" + str(food) + "g")
 
-        return render(request, 'app/post_form.html', {'food': food
+        return render(request, 'app/calory.html', {'food': food
 
-                                                      })
+                                                   })

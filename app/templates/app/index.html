@@ -44,10 +44,55 @@ nuko
 
 <hr>
 <form class="" action="{% url 'Calory' %}" method="post" enctype="multipart/form-data">
-{% csrf_token %}
-<p>犬or猫を入力<br>
-<input type="radio" name="q1" value="犬"> 犬
-<input type="radio" name="q1" value="猫"> 猫
-</p>
-<input type="submit" name="button" value="送信">
+    {% csrf_token %}
+    <p>犬or猫を入力<br>
+        <input type="radio" name="q1" value="犬"> 犬
+        <input type="radio" name="q1" value="猫"> 猫
+    </p>
+    <input type="submit" name="button" value="送信">
+
+
+    <hr>
+
+    {% for post in post_data %}
+
+        <div class="col-md-6 grid-item">
+            <div class="card">
+                <a href="{% url 'post_detail' post.id %}">
+                </a>
+                <div class="card-block">
+                    <h2 class="card-title"><a
+                            href="{% url 'post_detail' post.id %}">【{{ post.title }}】</a></h2>
+                    <h4 class="card-text">{{ post.content|truncatechars:100 }}</h4>
+
+                    <div class="metafooter">
+                        <div class="wrapfooter">
+										<span class="meta-footer-thumb">
+                                                        {% if post.image %}
+
+
+                                                            <img src="{{ post.image.url }}" alt="user"
+                                                                 class="author-thumb">
+                                                        {% else %}
+                                                            <img class="author-thumb"
+                                                                 src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&d=mm&r=x"
+                                                                 alt="Sal">
+                                                        {% endif %}
+
+										</span>
+                            <span class="author-meta">
+										<span class="post-name"><a target="_blank" href="#">{{ post.author }}</a></span><br/>
+										<span class="post-date">{{ post.created }}</span>
+										</span>
+                            <span class="post-read-more"><a href="single.html" title="Read Story"><i
+                                    class="fa fa-link"></i></a></span>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
 </form>
