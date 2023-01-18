@@ -1,5 +1,5 @@
 import math
-
+from django.contrib.auth.models import User
 import requests
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -13,10 +13,11 @@ import requests
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
+        user = request.user
         post_data = Health.objects.order_by('-id')
         form = PostForm(request.POST or None)
         return render(request, 'app/index.html', {
-            'post_data': post_data, 'form': form
+            'post_data': post_data, 'form': form, 'user': user
         })
 
     def post(self, request, *args, **kwargs):
@@ -155,17 +156,13 @@ class APItati(View):
 
 
 class Calory(View):
-    def calory(request):
-        data = request.POST['q1']
-        html = 'app/index.html'
-        print(data)
-        print('-------------')
-        if data == '犬':
-            html = 'app/inu_calory.html'
-        if data == '猫':
-            html = 'app/neko_calory.html'
+    def inucalory(request, *args, **kwargs):
 
-        return render(request, html)
+        return render(request, 'app/inu_calory.html')
+
+    def nekocalory(request, *args, **kwargs):
+
+        return render(request, 'app/neko_calory.html')
 
     def calory_form(request):
 
@@ -319,3 +316,15 @@ class BCS(View):
             html = 'app/neko_bcs.html'
 
         return render(request, html)
+
+    def bcs_form(request):
+
+
+
+
+
+        bcs=0
+
+        return render(request, 'app/Bcs.html', {'bcs': bcs
+
+                                                   })
