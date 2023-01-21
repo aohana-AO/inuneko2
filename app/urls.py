@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('inu_random', views.APItati.inu, name='inu_random'),
     path('Calory', views.Calory.calory, name='Calory'),
+    path('Bcs', views.BCS.bcs, name='Bcs'),
     path('Calory_form', views.Calory.calory_form, name='Calory_form'),
     path('sibainu_random', views.APItati.sibainu, name='sibainu_random'),
     path('post_create', views.CreatePost.as_view(), name='post_create'),

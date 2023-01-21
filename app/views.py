@@ -306,3 +306,16 @@ class Calory(View):
         return render(request, 'app/calory.html', {'food': food
 
                                                    })
+
+class BCS(View):
+    def bcs(request):
+        data = request.POST['q1']
+        html = 'app/index.html'
+        print(data)
+        print('-------------')
+        if data == '犬':
+            html = 'app/inu_bcs.html'
+        if data == '猫':
+            html = 'app/neko_bcs.html'
+
+        return render(request, html)

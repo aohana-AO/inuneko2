@@ -1,3 +1,5 @@
+{% load static %}
+{% load widget_tweaks %}
 nuko
 
 <a href="{% url 'account_login' %}">
@@ -45,18 +47,30 @@ nuko
 <hr>
 <form class="" action="{% url 'Calory' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>犬or猫を入力<br>
+    <p>適性食事量計算<br>犬or猫を入力<br>
         <input type="radio" name="q1" value="犬"> 犬
         <input type="radio" name="q1" value="猫"> 猫
     </p>
     <input type="submit" name="button" value="送信">
 
+</form>
+    <hr>
 
+<form class="" action="{% url 'Bcs' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>BCS計算<br>犬or猫を入力<br>
+        <input type="radio" name="q1" value="犬"> 犬
+        <input type="radio" name="q1" value="猫"> 猫
+    </p>
+    <input type="submit" name="button" value="送信">
+
+</form>
     <hr>
 
     {% for post in post_data %}
 
         <div class="col-md-6 grid-item">
+        <p>日記一覧</p>
             <div class="card">
                 <a href="{% url 'post_detail' post.id %}">
                 </a>
@@ -70,13 +84,14 @@ nuko
 										<span class="meta-footer-thumb">
                                                         {% if post.image %}
 
-
+                                                            {{ post.image }}
                                                             <img src="{{ post.image.url }}" alt="user"
-                                                                 class="author-thumb">
+                                                                                         class="author-thumb">
+
                                                         {% else %}
                                                             <img class="author-thumb"
-                                                                 src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&d=mm&r=x"
-                                                                 alt="Sal">
+                                                                 src="{% static 'img/adpDSC_2007.jpg' %}"
+                                                                 height="300px" width="300px">
                                                         {% endif %}
 
 										</span>
@@ -95,4 +110,3 @@ nuko
         </div>
 
     {% endfor %}
-</form>
