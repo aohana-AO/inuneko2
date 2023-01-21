@@ -3,46 +3,67 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
 
-            <div class="testimonial_box">
-                <h4>
-                    【{{ post_data.title }}】
-                </h4>
 
-                <h5>
-                    {{ post_data.content|truncatechars:100 }}
-                </h5>
+<!-- container -->
+        <div class="container">
 
-                <a href="{% url 'post_detail' post_data.id %}" class="readmore">詳細へ進む <i
-                        class="fa fa-caret-right"></i></a>
-            <h4>{{ post_data.createed|date }} </h4>
-            <h7>
-                                <span>
-                                    by {{ post_data.author }}
-                                    login user
-                                   </span>
-            </h7>
-        <p>削除しますか？</p>
-        <form method="post">
+
+                <article class="col-sm-8 maincontent">
+
+                    <header class="page-header">
+                        <h3 class="page-title">【{{ post_data.title }}】</h3>
+                    </header>
+                    <h5 class="card-title"><strong>【作成者：{{ post_data.author }}】</strong> 　作成日：{{ post_data.created }}</h5>
+                    <h5 class="card-title">カテゴリ：{{ post_data.category }}</h5>
+                    <br>
+                    <h4>{{ post_data.content }}</h4>
+                    <br>
+                        <form method="post">
 
             {% csrf_token %}
             <button class="btn btn-danger" type="submit">
-                削除
+                削除する
             </button>
 
 
         </form>
-            </div>
-
-        </div>
+                </article>
 
 
 
-    </div>
 
 
 
-    </div>
+                {% if post_data.image %}
 
+                    <!-- Sidebar -->
+                    <aside class="col-sm-4 sidebar sidebar-right">
+
+                        <div class="widget">
+                            <img src="{{ post_data.image.url }}" alt="" class="img-rounded pull-right"
+                                 width="500">
+                        </div>
+
+                    </aside>
+                    <!-- /Sidebar -->
+
+                {% else %}
+
+
+                    <!-- Sidebar -->
+                    <aside class="col-sm-4 sidebar sidebar-right">
+
+                        <div class="widget">
+                            <img src="{% static 'assets/images/mac.jpg' %}" alt="" class="img-rounded pull-right"
+                                 width="500">
+                        </div>
+
+                    </aside>
+                    <!-- /Sidebar -->
+
+                {% endif %}
+
+
+                </div>    <!-- /container -->
 {% endblock %}
