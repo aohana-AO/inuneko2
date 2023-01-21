@@ -1,105 +1,135 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>犬calory計算</title>
-</head>
-<body>
-
-<form action="{% url 'Calory_form' %}" class="contact-form" name="contact-form" method="post" enctype="multipart/form-data"
-                      style="width: 100%; margin-left: 5%">
-
-            {% csrf_token %}
-犬calory計算
-<hr>
-<label id='weight' >
-体重
-    <input type="number" name="weight"
-           min="0" max="200" step="0.01">
-
-</label>
-<select name="select" onchange="outputSelectedValueAndText(this);">
-    <option value=1>成犬</option>
-    <option value=2>生後１２か月以内</option>
-    <option value=3>高齢又は肥満</option>
-</select>
-
-<select id='q1' name="q1" style="display: block;">
-    <option value=1>去勢済み</option>
-    <option value=2>去勢していない</option>
-</select>
-
-<label id='q2' style="display: none;">
-生後何か月か
-    <input type="number" name="q2"
-           min=0 max=12>
-
-</label>
-    <label id='calory'>
-食事100g辺りのcalory
-    <input type="number" name="calory"
-           min=0 max=100000>
-
-</label>
-<hr>
-    <input type="hidden" name="inuneko"
-           value=1>
-
-<input type="submit" value="送信する">
+{% extends "app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 
-</form>
-<script type="text/javascript">
 
-    function outputSelectedValueAndText(obj) {
-        /*
-         * obj は select タグであり、selectedIndex プロパティには
-         * 変更後の選択項目のインデックスが格納されています
-         */
-        var idx = obj.selectedIndex;
-        var value = obj.options[idx].value; // 値
-        var text = obj.options[idx].text;  // 表示テキスト
-        q2 = document.getElementById("q2");
-        q1 = document.getElementById("q1");
-        console.log('value = ' + value + ', ' + 'text = ' + text);
+{% block content %}
 
-        if (value == 2) {
-            // noneで非表示
+    <!-- container -->
+    <div class="container" >
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">適性食事量計算（犬）</li>
+        </ol>
 
-            q2.style.display = "block";
-            q1.style.display = "none";
+        <div class="row" style="text-align: center;">
+
+            <!-- Article main content -->
+            <article class="col-sm-13 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">適性食事量計算（犬）</h1>
+                </header>
+                <hr>
+
+
+                <form action="{% url 'Calory_form' %}"  name="contact-form" method="post"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+
+                    <label id='weight'>
+                        体重(kg)
+                        <input class="form-control" value=5 type="number" name="weight"
+                               min="0" max="200" step="0.01">
+
+                    </label>
+
+                    <label id="select">
+                        犬の年齢・肥満
+                        <select class="form-control" name="select" onchange="outputSelectedValueAndText(this);">
+                            <option value=1>成犬</option>
+                            <option value=2>生後１２か月以内</option>
+                            <option value=3>高齢又は肥満</option>
+                        </select>
+                    </label>
+
+                    <label id='q1'>
+                        去勢しているか
+                        <select class="form-control" name="q1" style="display: block;">
+                            <option value=1>去勢済み</option>
+                            <option value=2>去勢していない</option>
+                        </select>
+                    </label>
+
+                    <label id='q2' style="display: none;">
+                        生後何か月か
+                        <input class="form-control" type="number" name="q2"
+                               min=0 max=12>
+
+                    </label>
+                    <label id='calory'>
+                        食事100g辺りのcalory
+                        <input value="100" class="form-control" type="number" name="calory"
+                               min=0 max=100000>
+
+                    </label>
+                    <hr>
+                    <input type="hidden" name="inuneko"
+                           value=1>
+
+                    <input class="btn btn-action" type="submit" value="送信する">
+
+
+                </form>
+
+
+            </article>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        function outputSelectedValueAndText(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            q2 = document.getElementById("q2");
+            q1 = document.getElementById("q1");
             console.log('value = ' + value + ', ' + 'text = ' + text);
-        } else if (value == 1) {
-            // blockで表示
-            q2.style.display = "none";
-            q1.style.display = "block";
-            console.log('value = ' + value + ', ' + 'text = ' + text);
 
-        } else {
-            q2.style.display = "none";
-            q1.style.display = "none";
-            console.log('value = ' + value + ', ' + 'text = ' + text);
+            if (value == 2) {
+                // noneで非表示
+
+                q2.style.display = "block";
+                q1.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 1) {
+                // blockで表示
+                q2.style.display = "none";
+                q1.style.display = "block";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            } else {
+                q2.style.display = "none";
+                q1.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
         }
 
+        function btnClick() {
 
-    }
+            q1 = document.getElementsByName("q1");
+            q2 = document.getElementsByName("q2");
 
-    function btnClick() {
+            console.log(q1.value)
+            if (q1.value === 1) {
+                // noneで非表示
 
-        q1 = document.getElementsByName("q1");
-        q2 = document.getElementsByName("q2");
-
-        console.log(q1.value)
-        if (q1.value === 1) {
-            // noneで非表示
-
-            q2.style.display = "none";
-        } else {
-            // blockで表示
-            q2.style.display = "none";
+                q2.style.display = "none";
+            } else {
+                // blockで表示
+                q2.style.display = "none";
+            }
         }
-    }
-</script>
-</body>
-</html>
+    </script>
+
+{% endblock %}
