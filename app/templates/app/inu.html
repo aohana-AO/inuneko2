@@ -1,0 +1,11 @@
+
+犬の画像をランダムに表示
+<hr>
+<a href="{% url 'inu_random' %}">
+
+    <button class="btn btn-warning">inu_random
+        <i class="fa fa-caret-right"></i>
+    </button>
+</a>
+<br>
+<img src="{{ result.0.message }}" alt="dog">
