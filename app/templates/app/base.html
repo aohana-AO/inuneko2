@@ -1,64 +1,159 @@
 {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>いぬねこhealth</title>
 
+	<link rel="shortcut icon" href="{% static "assets/images/logo (38).png" %}">
 
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="{% static "assets/css/bootstrap-theme.css" %}" media="screen" >
+	<link rel="stylesheet" href="{% static "assets/css/main.css" %}">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="{% static "assets/js/html5shiv.js" %}"></script>
+	<script src="{% static "assets/js/respond.min.js" %}"></script>
+	<![endif]-->
 </head>
-<body class="layout-default">
-<header class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsWow"
-            aria-controls="navbarsWow" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container">
-        <!-- Begin Logo -->
 
-        <!-- End Logo -->
-        <!-- Begin Menu -->
-        <div class="collapse navbar-collapse" id="navbarsWow">
-            <!-- Begin Menu -->
-            {% if user.is_authenticated %}
-aaa
+<body class="home">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="{% static "assets/images/logo (37).png" %}" alt="Progressus HTML5 template" style="height: 5rem;"></a>
+			</div>
 
-
-
-
-                {% else %}
-
-
-
-
-                   iii
-
-                {% endif %}
-
-
-            uuu
-            <!-- End Menu -->
-        </div>
-    </div>
-</header>
-
-
-<div class="site-content">
-    <!-- Home Jumbotron
-    ================================================== -->
-    {% block content %}
-    {% endblock %}
-    <!-- Begin Footer
-    ================================================== -->
-
-    <!-- End Footer
-    ================================================== -->
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="index.html">About</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">犬ギャラリー <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'inu_random' %}">犬</a></li>
+							<li><a href="{% url 'sibainu_random' %}">柴犬</a></li>
+						</ul>
+					</li>
+					<li><a href="contact.html">投稿</a></li>
+					<li class="active"><a class="btn" href="{% url 'account_logout' %}">log out</a></li>
+					<li class="active"><a class="btn" href="{% url 'account_login' %}">log in</a></li>
+					<li class="active"><a class="btn" href="{% url 'account_signup' %}">sign up</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+	<!-- /.navbar -->
+<div style="background-color: black; height: 100px;">
 </div>
 
-</body>
-{% block js %}
+     {% block content %}
 
-{% endblock %}
+
+
+
+	<!-- /Intro-->
+    {% endblock %}
+
+
+
+
+
+
+
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">使用・参考</h3>
+						<div class="widget-body">
+							<p>
+								<a href="https://shibe.online/">https://shibe.online/</a><br>
+								<a href="https://dog.ceo/">https://dog.ceo/</a><br>
+
+
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">about me</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">当サイトについて</h3>
+						<div class="widget-body">
+							<p>当サイトは河原電子ビジネス専門学校ITエンジニア科 研究開発課題として作成いたしました。
+								<br>
+								犬猫の健康を管理することを目的に、記録を残せる単純なCRAD機能やBCS・適性食事量を算出する機能と搭載しております。
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+								<a href="#">Home</a> |
+								<a href="about.html">About</a> |
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2023 hiraku&aoi by <a href="http://gettemplate.com/" rel="designer">gettemplate</a>
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>
+
+
+
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script>
 </body>
 </html>

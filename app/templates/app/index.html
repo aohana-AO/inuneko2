@@ -1,6 +1,66 @@
+{% extends "app/base.html" %}
 {% load static %}
 {% load widget_tweaks %}
-nuko
+
+
+
+  {% block content %}
+
+
+
+	<!-- Header -->
+
+
+	</div>
+	<header id="head">
+		<div class="container">
+			<div class="row" style="margin-top: 50px;">
+				<img src="{% static "assets/images/logo (41).png" %}">
+				<br>
+
+				<p class="tagline"><a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">犬猫の健康を管理<br>～Pet health management～</a></p>
+
+			</div>
+			<hr>
+
+		</div>
+	</header>
+	<!-- /Header -->
+
+	<!-- Intro -->
+	<div class="container text-center" style="margin-top: 5%; width: 90%; background-color: black;">
+		<br> <br>
+		<h2 class="thin" style="color: rgb(255, 255, 255);">適性食事量計算</h2>
+		<p class="text-muted">
+			一日に取るべき適性食事量を算出します。<br>
+				犬か猫をご選択ください。
+
+		</p>
+		<p><a href="{% url "CaloryInu" %}" class="btn btn-action btn-lg" role="button">犬の計算</a> <a href="{% url "CaloryNeko" %}" class="btn btn-action btn-lg" role="button">猫の計算</a></p>
+		<br>
+		<br>
+
+	</div>
+
+	<div class="container text-center" style="margin-top: 5%; width: 90%; background-color: black;">
+		<br> <br>
+		<h2 class="thin" style="color: rgb(255, 255, 255);">BCS計算</h2>
+		<p class="text-muted">
+			BCS（肥満度を5段階で評価）を算出します。<br>
+				犬か猫をご選択ください。
+
+		</p>
+		<p><a href="{% url "CaloryInu" %}" class="btn btn-action btn-lg" role="button">犬の計算</a> <a href="{% url "CaloryNeko" %}" class="btn btn-action btn-lg" role="button">猫の計算</a></p>
+		<br>
+		<br>
+
+	</div>
+
+
+
+
+	<!-- /Intro-->
+    {% endblock %}
 
 <a href="{% url 'account_login' %}">
 
@@ -54,7 +114,7 @@ nuko
     <input type="submit" name="button" value="送信">
 
 </form>
-    <hr>
+<hr>
 
 <form class="" action="{% url 'Bcs' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -65,28 +125,35 @@ nuko
     <input type="submit" name="button" value="送信">
 
 </form>
-    <hr>
+<hr>
 
-    {% for post in post_data %}
+<p>日記一覧</p>
+{% for post in post_data %}
 
-        <div class="col-md-6 grid-item">
-        <p>日記一覧</p>
-            <div class="card">
-                <a href="{% url 'post_detail' post.id %}">
-                </a>
-                <div class="card-block">
-                    <h2 class="card-title"><a
-                            href="{% url 'post_detail' post.id %}">【{{ post.title }}】</a></h2>
-                    <h4 class="card-text">{{ post.content|truncatechars:100 }}</h4>
 
-                    <div class="metafooter">
-                        <div class="wrapfooter">
+    <div class="col-md-6 grid-item">
+    <!--自分の投稿だけ表示-->
+        {% if user == post.author %}
+        <div class="card">
+            <a href="{% url 'post_detail' post.id %}">
+            </a>
+            <div class="card-block">
+                <h2 class="card-title"><a
+                        href="{% url 'post_detail' post.id %}">【{{ post.title }}】</a></h2>
+                <h4 class="card-text">{{ post.content|truncatechars:100 }}</h4>
+
+                <div class="metafooter">
+                    <div class="wrapfooter">
 										<span class="meta-footer-thumb">
                                                         {% if post.image %}
-
+                                                            h
                                                             {{ post.image }}
-                                                            <img src="{{ post.image.url }}" alt="user"
-                                                                                         class="author-thumb">
+                                                            {{ post.image.url }}
+                                                            <img src="{{ post.image }}" alt="user"
+                                                                 class="author-thumb">
+                                                            <img src="{% static '../../../images/281658_myoTLYk.jpg' %}"
+                                                                 alt="user"
+                                                                 class="author-thumb">
 
                                                         {% else %}
                                                             <img class="author-thumb"
@@ -95,18 +162,19 @@ nuko
                                                         {% endif %}
 
 										</span>
-                            <span class="author-meta">
+                        <span class="author-meta">
 										<span class="post-name"><a target="_blank" href="#">{{ post.author }}</a></span><br/>
 										<span class="post-date">{{ post.created }}</span>
 										</span>
-                            <span class="post-read-more"><a href="single.html" title="Read Story"><i
-                                    class="fa fa-link"></i></a></span>
-                            <div class="clearfix">
-                            </div>
+                        <span class="post-read-more"><a href="single.html" title="Read Story"><i
+                                class="fa fa-link"></i></a></span>
+                        <div class="clearfix">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    {% endif %}
+    </div>
 
-    {% endfor %}
+{% endfor %}

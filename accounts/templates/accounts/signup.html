@@ -5,33 +5,78 @@
 {% block content %}
 
 
-    <section class="intro">
-        <div class="wrapintro">
-            <h1>sign-up page</h1>
-            <h2 class="lead"><i class="fa fa-key"></i>  "こちらからサインアップできます"</h2>
-              <form method="post" class="form-auth">
+
+	<!-- container -->
+	<div class="container">
+
+		<ol class="breadcrumb">
+			<li><a href="index.html">Home</a></li>
+			<li class="active">登録</li>
+		</ol>
+
+		<div class="row">
+
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">アカウント登録</h1>
+				</header>
+
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<p class="text-center text-muted">アカウントをお持ちですか？<a href="signin.html">ログイン</a></p>
+							<hr>
+
+							<form method="post" class="form-auth">
                     {% csrf_token %}
+								<!--<div class="top-margin">
+									<label>First Name</label>
+									<input type="text" class="form-control">
+								</div>-->
+								<div class="top-margin">
+									<label>ユーザーネーム <span class="text-danger">*</span></label>
 
+									{% render_field form.username class='form-control' placeholder='ユーザーネーム' %}
+								</div>
 
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i>
-                                        {% render_field form.username class='form_control' placeholder='ユーザーネーム' %}</span>
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>パスワード <span class="text-danger">*</span></label>
 
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
-                                        {% render_field form.password1 class='form_control' placeholder='パスワード' %}</span>
+										{% render_field form.password1 class='form-control' placeholder='パスワード' %}
 
+									</div>
+									<div class="col-sm-6">
+										<label>パスワード(確認用) <span class="text-danger">*</span></label>
+										{% render_field form.password2 class='form-control' placeholder='パスワード' %}
 
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
-                                        {% render_field form.password2 class='form_control' placeholder='パスワード(確認用)' %}</span>
+									</div>
+								</div>
 
-                  <br>
-                    <div class="button mx-auto">
-                        <button class="btn btn-lg btn-primary btn-blocck mx-auto " type="submit">
-                            登録する
-                        </button>
+								<hr>
 
-                    </div>
+								<div class="row">
+									<div class="col-lg-8">
+										<label class="checkbox">
+											<input type="checkbox">
+											<a href="page_terms.html">利用規約</a>を読みましたか？
+										</label>
+									</div>
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">登録</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 
-                </form>
-        </div>
-    </section>
+				</div>
+
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+
 {% endblock %}

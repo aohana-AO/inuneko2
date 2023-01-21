@@ -3,29 +3,63 @@
 {% load static %}
 
 {% block content %}
-    <section class="intro">
-        <div class="wrapintro">
-            <h1>log-in page</h1>
-            <h2 class="lead"><i class="fa fa-key"></i>  "こちらからログインできます"</h2>
-            <form method='post' class="form-auth">
+
+
+    <!-- container -->
+	<div class="container">
+
+		<ol class="breadcrumb">
+			<li><a href="index.html">Home</a></li>
+			<li class="active">ログイン</li>
+		</ol>
+
+		<div class="row">
+
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">ログイン</h1>
+				</header>
+
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<p class="text-center text-muted">アカウントを持っていませんか？ <a href="signup.html">こちら</a>から登録できます。</p>
+							<hr>
+
+							   <form method='post' class="form-auth">
 
                 {% csrf_token %}
-                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i>
-                                        {% render_field form.login class='form_control' placeholder='ユーザーネーム' %}</span>
+								<div class="top-margin">
+									<label>ユーザーネーム <span class="text-danger">*</span></label>
+									{% render_field form.login class='form-control' placeholder='ユーザーネーム' %}
+								</div>
+								<div class="top-margin">
+									<label>パスワード <span class="text-danger">*</span></label>
+									{% render_field form.password class='form-control' placeholder='パスワード' %}
+								</div>
 
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock"></i>
-                                        {% render_field form.password class='form_control' placeholder='パスワード' %}</span>
+								<hr>
 
+								<div class="row">
+                                    <!---
+                                    -->
+									<div class="col-lg-8">
+										<b><a href="">パスワードを忘れましたか？</a></b>
+									</div>
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">ログイン</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 
+				</div>
 
-                <div class="button mx-auto">
-                    <button class="btn btn-lg btn-primary btn-blocck mx-auto" type="submit">
-                        ログイン
+			</article>
+			<!-- /Article -->
 
-                    </button>
-
-                </div>
-            </form>
-        </div>
-    </section>
+		</div>
+	</div>	<!-- /container -->
 {% endblock %}
