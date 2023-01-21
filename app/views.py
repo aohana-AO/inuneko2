@@ -305,17 +305,13 @@ class Calory(View):
                                                    })
 
 class BCS(View):
-    def bcs(request):
-        data = request.POST['q1']
-        html = 'app/index.html'
-        print(data)
-        print('-------------')
-        if data == '犬':
-            html = 'app/inu_bcs.html'
-        if data == '猫':
-            html = 'app/neko_bcs.html'
+    def inuBCS(request, *args, **kwargs):
 
-        return render(request, html)
+        return render(request, 'app/inu_bcs.html')
+
+    def nekoBCS(request, *args, **kwargs):
+
+        return render(request, 'app/neko_bcs.html')
 
     def bcs_form(request):
 

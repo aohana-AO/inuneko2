@@ -1,195 +1,246 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>犬BCS計算</title>
-</head>
-<body>
-
-<form action="{% url 'Calory_form' %}" class="contact-form" name="contact-form" method="post"
-      enctype="multipart/form-data"
-      style="width: 100%; margin-left: 5%">
-
-    {% csrf_token %}
-    犬BCS計算
-    <hr>
+{% extends "app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 
-    <label id="rib">
-        肋骨は触れますか。
-        <select onchange="Rib(this);">
-            <option value=1>はい</option>
-            <option value=2>いいえ</option>
-        </select>
-    </label>
+
+{% block content %}
+
+    <!-- container -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">BCS計算（犬）</li>
+        </ol>
+
+        <div class="row" style="text-align: center;">
+
+            <!-- Article main content -->
+            <article class="col-sm-13 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">BCS計算（犬）</h1>
+                </header>
 
 
-    <label id="look" style="display: block">
-        肋骨は外観からわかるほどに浮き出ているか。
-        <select onchange="Look(this);">
-            <option value=1>はい</option>
-            <option value=2>いいえ</option>
-        </select>
-    </label>
+
+                <form action="{% url 'Calory_form' %}" name="contact-form" method="post"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <label id="rib">
+                        肋骨は触れますか。
+                        <select class="form-control" onchange="Rib(this);">
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
 
-        <label id="spine" style="display: block">
-            脊椎と骨盤も外観からわかり､触っても脂肪がわからないほどに痩せているかどうか
-    <select>
-
-        <option value=1>はい</option>
-        <option value=2>いいえ</option>
-    </select>
-        </label>
-
-
-        <label id="const" style="display: none">
-            犬を上から見てくびれに注目し,くびれがはっきりと確認できる
-    <select onchange="Const(this);">
-
-        <option value=1>はい</option>
-        <option value=2>いいえ</option>
-    </select>
-        </label>
+                    <label id="look" style="display: block">
+                        肋骨は外観からわかるほどに浮き出ているか。
+                        <select class="form-control" onchange="Look(this);">
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
 
-        <label id="abdomen" style="display: none">
-            くびれはどの程度か
-    <select onchange="outputSelectedValueAndText(this);">
+                    <label id="spine" style="display: block">
+                        脊椎と骨盤も外観からわかり､触っても脂肪がわからないほどに痩せているかどうか
+                        <select class="form-control">
 
-        <option value=1>肋骨あたりからくびれができていて痩せていると感じる</option>
-        <option value=2>肋骨の後ろ、腰のあたりがくびれている</option>
-    </select>
-        </label>
-
-        <label>
-            犬を横から見て、胸からおなかのほうにかけて吊り上がっていっている
-    <select name="abdomen" onchange="outputSelectedValueAndText(this);">
-
-        <option value=1>はい</option>
-        <option value=2>いいえ</option>
-    </select>
-        </label>
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
 
-    <select name="abdomen" onchange="outputSelectedValueAndText(this);">
-        <label>
-            犬を横から見て、むねからおなかのほうにかけて平坦になっている
+                    <label id="const" style="display: none">
+                        犬を上から見てくびれに注目し,くびれがはっきりと確認できる
+                        <select class="form-control" onchange="Const(this);">
 
-        </label>
-        <option value=1>平坦になっている</option>
-        <option value=2>脂肪が垂れ下がっている</option>
-    </select>
-
-
-    <select id='q1' name="q1" style="display: block;">
-        <option value=1>去勢済み</option>
-        <option value=2>去勢していない</option>
-    </select>
-
-    <label id='q2' style="display: none;">
-        生後何か月か
-        <input type="number" name="q2"
-               min=0 max=12>
-
-    </label>
-    <label id='calory'>
-        食事100g辺りのcalory
-        <input type="number" name="calory"
-               min=0 max=100000>
-
-    </label>
-    <hr>
-    <input type="hidden" name="inuneko"
-           value=1>
-
-    <input type="submit" value="送信する">
+                            <option value=1>はっきりと確認できる</option>
+                            <option value=2>すこしある又はあまり見えない</option>
+                            <option value=3>全く確認できない</option>
+                        </select>
+                    </label>
 
 
-</form>
-<script type="text/javascript">
+                    <label id="abdomen" style="display: none">
+                        くびれはどの程度か
+                        <select class="form-control" onchange="outputSelectedValueAndText(this);">
 
-    function Rib(obj) {
-        /*
-         * obj は select タグであり、selectedIndex プロパティには
-         * 変更後の選択項目のインデックスが格納されています
-         */
-        var idx = obj.selectedIndex;
-        var value = obj.options[idx].value; // 値
-        var text = obj.options[idx].text;  // 表示テキスト
-        look = document.getElementById("look");
-        console.log('value = ' + value + ', ' + 'text = ' + text);
+                            <option value=1>肋骨あたりからくびれができていて痩せていると感じる</option>
+                            <option value=2>肋骨の後ろ、腰のあたりがくびれている</option>
+                        </select>
+                    </label>
 
-        if (value == 1) {
-            // blockで表示
+                    <label id="abdomen2" style="display: none">
+                        犬を横から見て、胸からおなかのほうにかけて吊り上がっていっている
+                        <select class="form-control" name="abdomen2" onchange="outputSelectedValueAndText(this);">
 
-            look.style.display = "block";
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
+
+                    <label id="abdomen3" style="display: none">
+                            犬を横から見て、むねからおなかのほうにかけて平坦になっている
+                        <select class="form-control" name="abdomen3" onchange="outputSelectedValueAndText(this);">
+
+                            <option value=1>平坦になっている</option>
+                            <option value=2>脂肪が垂れ下がっている</option>
+                        </select>
+                    </label>
+
+
+                    <hr>
+                    <input type="hidden" name="inuneko"
+                           value=1>
+
+                    <input class="btn btn-action" type="submit" value="送信する">
+
+
+                </form>
+
+            </article>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        function Rib(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("look");
+            dis = document.getElementById("const");
+            disab = document.getElementById("abdomen");
+            disab2 = document.getElementById("abdomen2");
+            disab3 = document.getElementById("abdomen3");
+            spine = document.getElementById("spine");
             console.log('value = ' + value + ', ' + 'text = ' + text);
-        } else {
-            look.style.display = "none";
-            console.log('value = ' + value + ', ' + 'text = ' + text);
-        }
-    }
-       function Look(obj) {
-        /*
-         * obj は select タグであり、selectedIndex プロパティには
-         * 変更後の選択項目のインデックスが格納されています
-         */
-        var idx = obj.selectedIndex;
-        var value = obj.options[idx].value; // 値
-        var text = obj.options[idx].text;  // 表示テキスト
-        dis = document.getElementById("const");
-        disab = document.getElementById("abdomen");
-        console.log('value = ' + value + ', ' + 'text = ' + text);
 
-        if (value == 1) {
-            // blockで表示
+            if (value == 1) {
+                // blockで表示
 
-            dis.style.display = "block";
-            disab.style.display = "none";
 
-            console.log('value = ' + value + ', ' + 'text = ' + text);
-        } else {
-            dis.style.display = "none";
-            disab.style.display = "block";
-            console.log('value = ' + value + ', ' + 'text = ' + text);
+                look.style.display = "block";
+                dis.style.display = "none";
+                disab.style.display = "none";
+                disab2.style.display = "none";
+                disab3.style.display = "none";
+                spine.style.display = "block";
+
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else {
+                look.style.display = "none";
+                dis.style.display = "none";
+                disab.style.display = "none";
+                disab2.style.display = "none";
+                disab3.style.display = "block";
+                spine.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
         }
 
-
-    }
-
-     function Const(obj) {
-        /*
-         * obj は select タグであり、selectedIndex プロパティには
-         * 変更後の選択項目のインデックスが格納されています
-         */
-        var idx = obj.selectedIndex;
-        var value = obj.options[idx].value; // 値
-        var text = obj.options[idx].text;  // 表示テキスト
-        dis = document.getElementById("const");
-        disab = document.getElementById("abdomen");
-        console.log('value = ' + value + ', ' + 'text = ' + text);
-
-        if (value == 1) {
-            // blockで表示
-
-            dis.style.display = "block";
-            disab.style.display = "none";
-
+        function Look(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            dis = document.getElementById("const");
+            disab = document.getElementById("abdomen");
+            disab2 = document.getElementById("abdomen2");
+            disab3 = document.getElementById("abdomen3");
+            spine = document.getElementById("spine");
+            q1 = document.getElementById("q1");
+            q2 = document.getElementById("q2");
             console.log('value = ' + value + ', ' + 'text = ' + text);
-        } else {
-            dis.style.display = "none";
-            disab.style.display = "block";
+
+            if (value == 1) {
+                // blockで表示
+
+                dis.style.display = "none";
+                disab.style.display = "none";
+                disab2.style.display = "none";
+                disab3.style.display = "none";
+                spine.style.display = "block";
+                q1.style.display = "none";
+                q2.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else {
+                dis.style.display = "block";
+                disab.style.display = "block";
+                spine.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
+        }
+
+        function Const(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            dis = document.getElementById("const");
+            disab = document.getElementById("abdomen");
+            disab2 = document.getElementById("abdomen2");
+            disab3 = document.getElementById("abdomen3");
+            spine = document.getElementById("spine");
+            q1 = document.getElementById("q1");
+            q2 = document.getElementById("q2");
             console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                dis.style.display = "block";
+                disab.style.display = "block";
+                disab2.style.display = "none";
+                disab3.style.display = "none";
+                spine.style.display = "none";
+                q1.style.display = "none";
+                q2.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                dis.style.display = "block";
+                disab.style.display = "none";
+                disab2.style.display = "block";
+                disab3.style.display = "none";
+                spine.style.display = "none";
+                q1.style.display = "none";
+                q2.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else {
+                dis.style.display = "block";
+                disab.style.display = "none";
+                disab2.style.display = "none";
+                disab3.style.display = "block";
+                spine.style.display = "none";
+                q1.style.display = "none";
+                q2.style.display = "none";
+
+            }
+
+
         }
 
 
-    }
-
-
-
-</script>
-</body>
-</html>
+    </script>
+{% endblock %}
