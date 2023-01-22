@@ -8,6 +8,7 @@ urlpatterns = [
     path('CaloryNeko', views.Calory.nekocalory, name='CaloryNeko'),
     path('inuBCS', views.BCS.inuBCS, name='inuBCS'),
     path('nekoBCS', views.BCS.nekoBCS, name='nekoBCS'),
+    path('BCS', views.BCS.bcs_form, name='BCS'),
     path('Calory_form', views.Calory.calory_form, name='Calory_form'),
     path('sibainu_random', views.APItati.sibainu, name='sibainu_random'),
     path('post_create', views.CreatePost.as_view(), name='post_create'),

@@ -23,14 +23,14 @@
 
 
 
-                <form action="{% url 'Calory_form' %}" name="contact-form" method="post"
+                <form action="{% url 'BCS' %}" name="contact-form" method="post"
                       enctype="multipart/form-data">
 
                     {% csrf_token %}
 
                     <label id="rib">
                         肋骨は触れますか。
-                        <select class="form-control" onchange="Rib(this);">
+                        <select class="form-control" name="rib" onchange="Rib(this);">
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
                         </select>
@@ -39,7 +39,7 @@
 
                     <label id="look" style="display: block">
                         肋骨は外観からわかるほどに浮き出ているか。
-                        <select class="form-control" onchange="Look(this);">
+                        <select class="form-control" name="look" onchange="Look(this);">
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
                         </select>
@@ -48,7 +48,7 @@
 
                     <label id="spine" style="display: block">
                         脊椎と骨盤も外観からわかり､触っても脂肪がわからないほどに痩せているかどうか
-                        <select class="form-control">
+                        <select class="form-control" name="spine">
 
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
@@ -58,7 +58,7 @@
 
                     <label id="const" style="display: none">
                         犬を上から見てくびれに注目し,くびれがはっきりと確認できる
-                        <select class="form-control" onchange="Const(this);">
+                        <select class="form-control" name="const" onchange="Const(this);">
 
                             <option value=1>はっきりと確認できる</option>
                             <option value=2>すこしある又はあまり見えない</option>
@@ -69,7 +69,7 @@
 
                     <label id="abdomen" style="display: none">
                         くびれはどの程度か
-                        <select class="form-control" onchange="outputSelectedValueAndText(this);">
+                        <select class="form-control" name="abdomen" onchange="outputSelectedValueAndText(this);">
 
                             <option value=1>肋骨あたりからくびれができていて痩せていると感じる</option>
                             <option value=2>肋骨の後ろ、腰のあたりがくびれている</option>

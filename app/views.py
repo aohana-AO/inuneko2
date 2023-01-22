@@ -35,7 +35,7 @@ class IndexView(View):
         organization = request.POST["organization"]
         print(organization)
         post_data = Health.objects.filter(problemCategory=problemcategory, purpose=purpose, status=status,
-                                        problemSize=problemsize, organization=organization)
+                                          problemSize=problemsize, organization=organization)
 
         if request.FILES:
             post_data.image = request.FILES.get('image')
@@ -304,6 +304,7 @@ class Calory(View):
 
                                                    })
 
+
 class BCS(View):
     def inuBCS(request, *args, **kwargs):
 
@@ -315,12 +316,168 @@ class BCS(View):
 
     def bcs_form(request):
 
+        BCS = str()
+
+        def animal_bcs(BCS):
+
+            # 犬か猫か判定
+            q1 = int(request.POST['inuneko'])
+
+            # 犬🐶
+            if q1 == 1:
+                # 肋骨が触れるかどうかで第一段階判断
+                rib = int(request.POST['rib'])
+
+                if rib == 1:
+                    # 犬の外観から判断
+                    look = int(request.POST['look'])
+
+                    # 肋骨浮き出るくらい痩せてる
+                    if look == 1:
+                        spine = int(request.POST['spine'])
+
+                        if spine == 1:
+                            BCS = "非常にやせ細っています。健康状態や理想体重などの詳しい状態は獣医師に相談して下さい"
+                            return BCS
+
+                        elif spine == 2:
+                            BCS = "痩せています。理想体重などを獣医師と相談"
+                            return BCS
+
+                    # そうでもないとき
+                    elif look == 2:
+                        const = int(request.POST['const'])
+
+                        # くびれで判断
+                        if const == 1:
+                            abdomen = int(request.POST['abdomen'])
+
+                            if abdomen == 1:
+                                BCS = "やや瘦せています。理想体重などを獣医師と相談。"
+                                return BCS
+
+                            elif abdomen == 2:
+                                BCS = "理想的な体重。おやつのあげすぎなどに注意"
+                                return BCS
+
+                        elif const == 2:
+                            abdomen = int(request.POST['abdomen2'])
+                            if abdomen == 1:
+                                BCS = "やや肥満気味。適切な運動や食事管理を。おやつのあげすぎには注意"
+                                return BCS
+
+                            elif abdomen == 2:
+                                BCS = "肥満気味。適切な運動と食事管理を。おやつはあげたぶんだけ主食をへらす"
+                                return BCS
+
+                        elif const == 3:
+                            body = int(request.POST['abdomen3'])
+
+                            if body == 1:
+                                BCS = "肥満気味。適切な運動と食事管理を。おやつはあげたぶんだけ主食をへらす"
+                                return BCS
+
+                            elif body == 2:
+                                BCS = "かなりの肥満。適切な運動と食事管理を。本格的なダイエットが必要な場合は獣医師に相談"
+                                return BCS
+
+                elif rib == 2:
+                    body = int(request.POST['abdomen3'])
+
+                    if body == 1:
+                        BCS = "肥満気味。適切な運動と食事管理を。おやつはあげたぶんだけ主食をへらす"
+                        return BCS
+
+                    elif body == 2:
+                        BCS = "かなりの肥満。適切な運動と食事管理を。本格的なダイエットが必要な場合は獣医師に相談"
+                        return BCS
 
 
+            # ねこ(=^・・^=)
+            elif q1 == 2:
+
+                # 肋骨を触って判断
+                rib_touch = int(input("肋骨は簡単に触れるか。Yes=1,No=2: "))
+
+                if rib_touch == 1:
+
+                    # 外観で
+                    rib_look = int(input("肋骨は外から見てわかるか。Yes=1,No=2: "))
+
+                    if rib_look == 1:
+
+                        # くびれで
+                        consta = int(input("肋骨の後ろ、腰のあたりのくびれは深いか。Yes=1,No=2: "))
+
+                        if consta == 1:
+
+                            body = int(input("横から見て腹部はかなり吊り上がっているか。Yes=1,No=2: "))
+
+                            # 結果
+                            if body == 1:
+                                BCS = "かなり痩せている。必要なら獣医師に相談"
+                                return BCS
+
+                            elif body == 2:
+                                BCS = "痩せている。"
+                                return BCS
+
+                        elif consta == 2:
+                            BCS = "やや瘦せている。"
+                            return BCS
+
+                    # くびれの深さで
+                    elif rib_look == 2:
+                        consta = int(input("腰はわずかにでもくびれているか。Yes=1,No=2: "))
+
+                        if consta == 1:
+                            body = int(input("横から見て腹部の吊り上がりはどの程度か。深いなら1、浅いなら2: "))
+
+                            # 結果
+                            if body == 1:
+                                BCS = "やや痩せている。"
+                                return BCS
+
+                            elif body == 2:
+                                BCS = "理想体重。"
+                                return BCS
+
+                        # おなかの丸さで
+                        elif consta == 2:
+                            body = int(input("横から見ておなかの丸みはどの程度か。やや丸いなら1、まん丸なら2: "))
+
+                            # 結果
+                            if body == 1:
+                                BCS = "やや太っている。"
+                                return BCS
+
+                            elif body == 2:
+                                body2 = int(input("脇腹のひだは歩くとどれくらい揺れるか。揺れている程度なら1、盛んに揺れるなら2: "))
+                                if body2 == 1:
+                                    BCS = "太っている。"
+                                    return BCS
+
+                                elif body2 == 2:
+                                    BCS = "かなり太っている。"
+                                    return BCS
 
 
-        bcs=0
+                # 肋骨が触れなかった場合
+                elif rib_touch == 2:
+                    body2 = int(input("脇腹のひだは歩くとどれくらい揺れるか。揺れている程度なら1、盛んに揺れるなら2: "))
+
+                    if body2 == 1:
+                        BCS = "太っている。"
+                        return BCS
+
+                    elif body2 == 2:
+                        BCS = "かなり太っている。"
+                        return BCS
+
+        bcs = animal_bcs(BCS)
+
+        print(bcs)
 
         return render(request, 'app/Bcs.html', {'bcs': bcs
 
-                                                   })
+                                                })
