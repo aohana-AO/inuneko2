@@ -1,0 +1,1 @@
+web: gunicorn inuneko2.wsgi

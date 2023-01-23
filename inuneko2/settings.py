@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-qm466w$2vzg97il0@ib(*=z=x$59ccrc^ghq-!$^z9i8i*)inw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -117,9 +117,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "app/static"),
 )
 
 # Default primary key field type
@@ -134,3 +134,5 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CSRF_TRUSTED_ORIGINS = ['https://ac-web2.up.railway.app']
