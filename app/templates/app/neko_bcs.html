@@ -23,62 +23,48 @@
 
 
 
-                <form action="{% url 'Calory_form' %}" name="contact-form" method="post"
+                <form action="{% url 'BCS' %}" name="contact-form" method="post"
                       enctype="multipart/form-data">
 
                     {% csrf_token %}
 
-                    <label id="rib">
+                    <label id="rib_touch">
                         肋骨は触れますか。
-                        <select class="form-control" onchange="Rib(this);">
+                        <select class="form-control" onchange="Rib(this);" name="rib_touch">
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
                         </select>
                     </label>
 
 
-                    <label id="look" style="display: block">
+                    <label id="rib_look" style="display: block">
                         肋骨は外観からわかるほどに浮き出ているか。
-                        <select class="form-control" onchange="Look(this);">
+                        <select class="form-control" onchange="Look(this);" name="rib_look">
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
                         </select>
                     </label>
 
-
-                    <label id="spine" style="display: block">
-                        脊椎と骨盤も外観からわかり､触っても脂肪がわからないほどに痩せているかどうか
-                        <select class="form-control">
+                   <label id="consta" style="display: block">
+                        肋骨の後ろ、腰のあたりのくびれは深いか。
+                        <select class="form-control" onchange="Const(this);" name="consta">
 
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
                         </select>
                     </label>
 
+                    <label id="consta2" style="display: none">
+                        腰はわずかにでもくびれているか
+                        <select class="form-control" onchange="Const2(this);" name="consta2">
 
-                    <label id="const" style="display: none">
-                        犬を上から見てくびれに注目し,くびれがはっきりと確認できる
-                        <select class="form-control" onchange="Const(this);">
-
-                            <option value=1>はっきりと確認できる</option>
-                            <option value=2>すこしある又はあまり見えない</option>
-                            <option value=3>全く確認できない</option>
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
                         </select>
                     </label>
-
-
-                    <label id="abdomen" style="display: none">
-                        くびれはどの程度か
-                        <select class="form-control" onchange="outputSelectedValueAndText(this);">
-
-                            <option value=1>肋骨あたりからくびれができていて痩せていると感じる</option>
-                            <option value=2>肋骨の後ろ、腰のあたりがくびれている</option>
-                        </select>
-                    </label>
-
-                    <label id="abdomen2" style="display: none">
-                        犬を横から見て、胸からおなかのほうにかけて吊り上がっていっている
-                        <select class="form-control" name="abdomen2" onchange="outputSelectedValueAndText(this);">
+                    <label id="body" style="display: none">
+                        横から見て腹部はかなり吊り上がっているか
+                        <select class="form-control" name="body">
 
                             <option value=1>はい</option>
                             <option value=2>いいえ</option>
@@ -86,19 +72,32 @@
                     </label>
 
 
-                    <label id="abdomen3" style="display: none">
-                            犬を横から見て、むねからおなかのほうにかけて平坦になっている
-                        <select class="form-control" name="abdomen3" onchange="outputSelectedValueAndText(this);">
 
-                            <option value=1>平坦になっている</option>
-                            <option value=2>脂肪が垂れ下がっている</option>
+
+                    <label id="body_onaka" style="display: none">
+                        横から見ておなかの丸みはどの程度か。
+                        <select class="form-control" name="onaka" onchange="Onaka(this);">
+
+                            <option value=1>やや丸い</option>
+                            <option value=2>かなりまん丸</option>
+                        </select>
+                    </label>
+
+
+
+                    <label id="wakibara" style="display: none">
+                            脇腹のひだは歩くとどれくらい揺れるか。
+                        <select class="form-control" name="wakibara" onchange="outputSelectedValueAndText(this);">
+
+                            <option value=1>揺れる</option>
+                            <option value=2>かなり揺れる</option>
                         </select>
                     </label>
 
 
                     <hr>
                     <input type="hidden" name="inuneko"
-                           value=1>
+                           value=2>
 
                     <input class="btn btn-action" type="submit" value="送信する">
 
@@ -118,12 +117,13 @@
             var idx = obj.selectedIndex;
             var value = obj.options[idx].value; // 値
             var text = obj.options[idx].text;  // 表示テキスト
-            look = document.getElementById("look");
-            dis = document.getElementById("const");
-            disab = document.getElementById("abdomen");
-            disab2 = document.getElementById("abdomen2");
-            disab3 = document.getElementById("abdomen3");
-            spine = document.getElementById("spine");
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+
             console.log('value = ' + value + ', ' + 'text = ' + text);
 
             if (value == 1) {
@@ -131,21 +131,22 @@
 
 
                 look.style.display = "block";
-                dis.style.display = "none";
-                disab.style.display = "none";
-                disab2.style.display = "none";
-                disab3.style.display = "none";
-                spine.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
 
 
                 console.log('value = ' + value + ', ' + 'text = ' + text);
             } else {
                 look.style.display = "none";
-                dis.style.display = "none";
-                disab.style.display = "none";
-                disab2.style.display = "none";
-                disab3.style.display = "block";
-                spine.style.display = "none";
+                consta.style.display = "none";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "block";
                 console.log('value = ' + value + ', ' + 'text = ' + text);
             }
         }
@@ -158,31 +159,32 @@
             var idx = obj.selectedIndex;
             var value = obj.options[idx].value; // 値
             var text = obj.options[idx].text;  // 表示テキスト
-            dis = document.getElementById("const");
-            disab = document.getElementById("abdomen");
-            disab2 = document.getElementById("abdomen2");
-            disab3 = document.getElementById("abdomen3");
-            spine = document.getElementById("spine");
-            q1 = document.getElementById("q1");
-            q2 = document.getElementById("q2");
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
             console.log('value = ' + value + ', ' + 'text = ' + text);
 
             if (value == 1) {
                 // blockで表示
 
-                dis.style.display = "none";
-                disab.style.display = "none";
-                disab2.style.display = "none";
-                disab3.style.display = "none";
-                spine.style.display = "block";
-                q1.style.display = "none";
-                q2.style.display = "none";
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
 
                 console.log('value = ' + value + ', ' + 'text = ' + text);
             } else {
-                dis.style.display = "block";
-                disab.style.display = "block";
-                spine.style.display = "none";
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
                 console.log('value = ' + value + ', ' + 'text = ' + text);
             }
 
@@ -197,45 +199,110 @@
             var idx = obj.selectedIndex;
             var value = obj.options[idx].value; // 値
             var text = obj.options[idx].text;  // 表示テキスト
-            dis = document.getElementById("const");
-            disab = document.getElementById("abdomen");
-            disab2 = document.getElementById("abdomen2");
-            disab3 = document.getElementById("abdomen3");
-            spine = document.getElementById("spine");
-            q1 = document.getElementById("q1");
-            q2 = document.getElementById("q2");
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
             console.log('value = ' + value + ', ' + 'text = ' + text);
 
             if (value == 1) {
                 // blockで表示
 
-                dis.style.display = "block";
-                disab.style.display = "block";
-                disab2.style.display = "none";
-                disab3.style.display = "none";
-                spine.style.display = "none";
-                q1.style.display = "none";
-                q2.style.display = "none";
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
 
                 console.log('value = ' + value + ', ' + 'text = ' + text);
             } else if (value == 2) {
-                dis.style.display = "block";
-                disab.style.display = "none";
-                disab2.style.display = "block";
-                disab3.style.display = "none";
-                spine.style.display = "none";
-                q1.style.display = "none";
-                q2.style.display = "none";
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
                 console.log('value = ' + value + ', ' + 'text = ' + text);
-            } else {
-                dis.style.display = "block";
-                disab.style.display = "none";
-                disab2.style.display = "none";
-                disab3.style.display = "block";
-                spine.style.display = "none";
-                q1.style.display = "none";
-                q2.style.display = "none";
+            }
 
+
+        }function Const2(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+            console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
+        }
+        function Onaka(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+            console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "block";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
             }
 
 

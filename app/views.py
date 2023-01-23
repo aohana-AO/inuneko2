@@ -397,21 +397,21 @@ class BCS(View):
             elif q1 == 2:
 
                 # 肋骨を触って判断
-                rib_touch = int(input("肋骨は簡単に触れるか。Yes=1,No=2: "))
+                rib_touch = body = int(request.POST['rib_touch'])
 
                 if rib_touch == 1:
 
                     # 外観で
-                    rib_look = int(input("肋骨は外から見てわかるか。Yes=1,No=2: "))
+                    rib_look = body = int(request.POST['rib_look'])
 
                     if rib_look == 1:
 
                         # くびれで
-                        consta = int(input("肋骨の後ろ、腰のあたりのくびれは深いか。Yes=1,No=2: "))
+                        consta = int(request.POST['consta'])
 
                         if consta == 1:
 
-                            body = int(input("横から見て腹部はかなり吊り上がっているか。Yes=1,No=2: "))
+                            body = int(request.POST['body'])
 
                             # 結果
                             if body == 1:
@@ -428,10 +428,10 @@ class BCS(View):
 
                     # くびれの深さで
                     elif rib_look == 2:
-                        consta = int(input("腰はわずかにでもくびれているか。Yes=1,No=2: "))
+                        consta = int(request.POST['consta2'])
 
                         if consta == 1:
-                            body = int(input("横から見て腹部の吊り上がりはどの程度か。深いなら1、浅いなら2: "))
+                            body = int(request.POST['body'])
 
                             # 結果
                             if body == 1:
@@ -444,7 +444,7 @@ class BCS(View):
 
                         # おなかの丸さで
                         elif consta == 2:
-                            body = int(input("横から見ておなかの丸みはどの程度か。やや丸いなら1、まん丸なら2: "))
+                            body = int(request.POST['onaka'])
 
                             # 結果
                             if body == 1:
@@ -452,7 +452,7 @@ class BCS(View):
                                 return BCS
 
                             elif body == 2:
-                                body2 = int(input("脇腹のひだは歩くとどれくらい揺れるか。揺れている程度なら1、盛んに揺れるなら2: "))
+                                body2 = int(request.POST['wakibara'])
                                 if body2 == 1:
                                     BCS = "太っている。"
                                     return BCS
@@ -464,7 +464,7 @@ class BCS(View):
 
                 # 肋骨が触れなかった場合
                 elif rib_touch == 2:
-                    body2 = int(input("脇腹のひだは歩くとどれくらい揺れるか。揺れている程度なら1、盛んに揺れるなら2: "))
+                    body2 = int(request.POST['wakibara'])
 
                     if body2 == 1:
                         BCS = "太っている。"
