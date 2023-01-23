@@ -3,6 +3,7 @@ from app import views
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('about', views.AboutView.as_view(), name='about'),
     path('inu_random', views.APItati.inu, name='inu_random'),
     path('CaloryInu', views.Calory.inucalory, name='CaloryInu'),
     path('CaloryNeko', views.Calory.nekocalory, name='CaloryNeko'),
