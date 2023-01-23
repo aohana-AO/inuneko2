@@ -134,4 +134,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = ['https://inunekohealth.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ["https://inunekohealth.up.railway.app"]
