@@ -1,109 +1,313 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>犬calory計算</title>
-</head>
-<body>
-
-<form action="{% url 'Calory_form' %}" class="contact-form" name="contact-form" method="post" enctype="multipart/form-data"
-                      style="width: 100%; margin-left: 5%">
-
-            {% csrf_token %}
-犬BCS計算
-<hr>
+{% extends "app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 
 
-    <label id="select">
-        肋骨は触れますか。
-        <select onchange="outputSelectedValueAndText(this);">
-            <option value=1>はい</option>
-            <option value=2>いいえ</option>
-        </select>
-    </label>
+{% block content %}
+
+    <!-- container -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">BCS計算（猫）</li>
+        </ol>
+
+        <div class="row" style="text-align: center;">
+
+            <!-- Article main content -->
+            <article class="col-sm-13 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">BCS計算（猫）</h1>
+                </header>
 
 
-<label id='q1' name="q1" style="display: block;">
-    ぬこ
 
-<select >
-    <option value=1>去勢済み</option>
-    <option value=2>去勢していない</option>
-</select>
-    </label>
+                <form action="{% url 'BCS' %}" name="contact-form" method="post"
+                      enctype="multipart/form-data">
 
-<label id='q2' style="display: none;">
-生後何か月か
-    <input type="number" name="q2"
-           min=0 max=12>
+                    {% csrf_token %}
 
-</label>
-    <label id='calory'>
-食事100g辺りのcalory
-    <input type="number" name="calory"
-           min=0 max=100000>
-
-</label>
-<hr>
-    <input type="hidden" name="inuneko"
-           value=1>
-
-<input type="submit" value="送信する">
+                    <label id="rib_touch">
+                        肋骨は触れますか。
+                        <select class="form-control" onchange="Rib(this);" name="rib_touch">
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
 
-</form>
-<script type="text/javascript">
+                    <label id="rib_look" style="display: block">
+                        肋骨は外観からわかるほどに浮き出ているか。
+                        <select class="form-control" onchange="Look(this);" name="rib_look">
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
-    function outputSelectedValueAndText(obj) {
-        /*
-         * obj は select タグであり、selectedIndex プロパティには
-         * 変更後の選択項目のインデックスが格納されています
-         */
-        var idx = obj.selectedIndex;
-        var value = obj.options[idx].value; // 値
-        var text = obj.options[idx].text;  // 表示テキスト
-        q2 = document.getElementById("q2");
-        q1 = document.getElementById("q1");
-        console.log('value = ' + value + ', ' + 'text = ' + text);
+                   <label id="consta" style="display: block">
+                        肋骨の後ろ、腰のあたりのくびれは深いか。
+                        <select class="form-control" onchange="Const(this);" name="consta">
 
-        if (value == 2) {
-            // noneで非表示
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
 
-            q2.style.display = "block";
-            q1.style.display = "none";
+                    <label id="consta2" style="display: none">
+                        腰はわずかにでもくびれているか
+                        <select class="form-control" onchange="Const2(this);" name="consta2">
+
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
+                    <label id="body" style="display: none">
+                        横から見て腹部はかなり吊り上がっているか
+                        <select class="form-control" name="body">
+
+                            <option value=1>はい</option>
+                            <option value=2>いいえ</option>
+                        </select>
+                    </label>
+
+
+
+
+                    <label id="body_onaka" style="display: none">
+                        横から見ておなかの丸みはどの程度か。
+                        <select class="form-control" name="onaka" onchange="Onaka(this);">
+
+                            <option value=1>やや丸い</option>
+                            <option value=2>かなりまん丸</option>
+                        </select>
+                    </label>
+
+
+
+                    <label id="wakibara" style="display: none">
+                            脇腹のひだは歩くとどれくらい揺れるか。
+                        <select class="form-control" name="wakibara" onchange="outputSelectedValueAndText(this);">
+
+                            <option value=1>揺れる</option>
+                            <option value=2>かなり揺れる</option>
+                        </select>
+                    </label>
+
+
+                    <hr>
+                    <input type="hidden" name="inuneko"
+                           value=2>
+
+                    <input class="btn btn-action" type="submit" value="送信する">
+
+
+                </form>
+
+            </article>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        function Rib(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+
             console.log('value = ' + value + ', ' + 'text = ' + text);
-        } else if (value == 1) {
-            // blockで表示
-            q2.style.display = "none";
-            q1.style.display = "block";
+
+            if (value == 1) {
+                // blockで表示
+
+
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
+
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else {
+                look.style.display = "none";
+                consta.style.display = "none";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "block";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+        }
+
+        function Look(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
             console.log('value = ' + value + ', ' + 'text = ' + text);
 
-        } else {
-            q2.style.display = "none";
-            q1.style.display = "none";
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else {
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
+        }
+
+        function Const(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
             console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "none";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                look.style.display = "block";
+                consta.style.display = "block";
+                consta2.style.display = "none";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
+        }function Const2(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+            console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "block";
+                onaka.style.display = "none";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "none";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
+        }
+        function Onaka(obj) {
+            /*
+             * obj は select タグであり、selectedIndex プロパティには
+             * 変更後の選択項目のインデックスが格納されています
+             */
+            var idx = obj.selectedIndex;
+            var value = obj.options[idx].value; // 値
+            var text = obj.options[idx].text;  // 表示テキスト
+            look = document.getElementById("rib_look");
+            consta = document.getElementById("consta");
+            consta2 = document.getElementById("consta2");
+            body = document.getElementById("body");
+            onaka = document.getElementById("body_onaka");
+            wakibara = document.getElementById("wakibara");
+            console.log('value = ' + value + ', ' + 'text = ' + text);
+
+            if (value == 1) {
+                // blockで表示
+
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "none";
+
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            } else if (value == 2) {
+                look.style.display = "block";
+                consta.style.display = "none";
+                consta2.style.display = "block";
+                body.style.display = "none";
+                onaka.style.display = "block";
+                wakibara.style.display = "block";
+                console.log('value = ' + value + ', ' + 'text = ' + text);
+            }
+
+
         }
 
 
-    }
-
-    function btnClick() {
-
-        q1 = document.getElementsByName("q1");
-        q2 = document.getElementsByName("q2");
-
-        console.log(q1.value)
-        if (q1.value === 1) {
-            // noneで非表示
-
-            q2.style.display = "none";
-        } else {
-            // blockで表示
-            q2.style.display = "none";
-        }
-    }
-</script>
-</body>
-</html>
+    </script>
+{% endblock %}

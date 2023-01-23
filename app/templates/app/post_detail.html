@@ -5,38 +5,21 @@
 
 
 
-    <section id="about-page-section-3">
+<!-- container -->
         <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-7 text-align">
-                    <div class="section-heading">
-                        <h2><span>{{ post_data.title }}</span></h2>
-                        <hr>
-                        <p></p>
-                        <p class="subheading">{{ post_data.content|linebreaksbr }}</p>
-                    </div>
-                    <p>
-                        作成日：{{ post_data.created }}
-&nbsp;&nbsp;
-                        <strong>
-
-                        [作成者:{{ post_data.author }}]
-                        </strong>
-                    </p>
-
-                <br>
-                <hr>
-                <br>
-
-                <hr>
-
-                    <p>
-                        カテゴリ：{{ post_data.category }}
-                    </p>
 
 
-                    {% if user == post_data.author %}
-                        <a href="{% url 'post_edit' post_data.id %}" style="margin-right: 15px">
+                <article class="col-sm-8 maincontent">
+
+                    <header class="page-header">
+                        <h3 class="page-title">【{{ post_data.title }}】</h3>
+                    </header>
+                    <h5 class="card-title"><strong>【作成者：{{ post_data.author }}】</strong> 　作成日：{{ post_data.created }}</h5>
+                    <h5 class="card-title">カテゴリ：{{ post_data.category }}</h5>
+                    <br>
+                    <h4>{{ post_data.content }}</h4>
+                    <br>
+                         <a href="{% url 'post_edit' post_data.id %}" style="margin-right: 15px">
                             <button class="btn btn-warning" type="submit">
                                 自分の投稿を編集する
                             </button>
@@ -51,28 +34,44 @@
 
 
                         </a>
+                </article>
 
 
-                    {% endif %}
+
+
+
 
                 {% if post_data.image %}
 
+                    <!-- Sidebar -->
+                    <aside class="col-sm-4 sidebar sidebar-right">
 
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
-                    <img height="" width="auto" src="{{ post_data.image.url }}" class="attachment-full img-responsive"
-                         alt="">
+                        <div class="widget">
+                            <img src="{{ post_data.image.url }}" alt="" class="img-rounded pull-right"
+                                 width="500">
+                        </div>
+
+                    </aside>
+                    <!-- /Sidebar -->
 
                 {% else %}
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
-                        <img height="" width="auto" src="{% static 'img/user.jpg' %}"
-                             class="attachment-full img-responsive" alt="">
-                    </div>
+
+
+                    <!-- Sidebar -->
+                    <aside class="col-sm-4 sidebar sidebar-right">
+
+                        <div class="widget">
+                            <img src="{% static 'assets/images/mac.jpg' %}" alt="" class="img-rounded pull-right"
+                                 width="500">
+                        </div>
+
+                    </aside>
+                    <!-- /Sidebar -->
+
                 {% endif %}
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
+
+
+                </div>    <!-- /container -->
 
 
 

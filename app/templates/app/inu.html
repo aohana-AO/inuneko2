@@ -1,11 +1,56 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
 
-犬の画像をランダムに表示
-<hr>
-<a href="{% url 'inu_random' %}">
+{% block content %}
 
-    <button class="btn btn-warning">inu_random
-        <i class="fa fa-caret-right"></i>
-    </button>
-</a>
-<br>
-<img src="{{ result.0.message }}" alt="dog">
+
+
+
+    <!-- container -->
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li><a href="{% url "index" %}">Home</a></li>
+            <li class="active">犬</li>
+        </ol>
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title"></h1>
+                </header>
+
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="thin text-center">犬の画像をランダムに表示します。</h3>
+                            <hr>
+                            <img src="{{ result.0.message }}" width="100%" height="400px" style="text-align:center;"
+                                 alt="dog">
+                            <hr>
+
+                            <a style="text-align:center;" href="{% url 'inu_random' %}">
+
+                                <button style="text-align:center; width: 100%" class="btn btn-action">他の犬を見る
+                                    <i class="fa fa-caret-right"></i>
+                                </button>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </article>
+        </div>
+
+        <!-- /Article -->
+
+    </div>
+    </div>    <!-- /container -->
+
+
+{% endblock %}

@@ -1,54 +1,80 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>猫calory計算</title>
-</head>
-<body>
 
-<form action="{% url 'Calory_form' %}" class="contact-form" name="contact-form" method="post" enctype="multipart/form-data"
-                      style="width: 100%; margin-left: 5%">
+{% extends "app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
-            {% csrf_token %}
 
-猫calory計算
-<hr>
+
+{% block content %}
+
+    <!-- container -->
+    <div class="container" >
+        <ol class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">適性食事量計算（猫）</li>
+        </ol>
+
+        <div class="row" style="text-align: center;">
+
+            <!-- Article main content -->
+            <article class="col-sm-13 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">適性食事量計算（猫）</h1>
+                </header>
+                <hr>
+
+
+                <form action="{% url 'Calory_form' %}"  name="contact-form" method="post"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
     <label id='weight' >
 体重
-    <input type="number" name="weight"
+    <input value=2 class="form-control" type="number" name="weight"
            min="0" max="200" step="0.01">
 
 </label>
-<select name="select" onchange="outputSelectedValueAndText(this);">
+                    <label>
+
+                    猫の年齢・肥満
+<select name="select" class="form-control" onchange="outputSelectedValueAndText(this);">
     <option value=1>成猫</option>
     <option value=2>生後１２か月以内</option>
     <option value=3>高齢</option>
     <option value=4>肥満</option>
 </select>
+                    </label>
 
-<select id='q1' name="q1" style="display: block;">
+                    <label id='q1'>
+                        去勢の有無
+<select class="form-control"  name="q1" style="display: block;">
     <option value=1>去勢済み</option>
     <option value=2>去勢していない</option>
 </select>
+                        </label>
 
 <label id='q2' style="display: none;">
 生後何か月か
-    <input type="number" name="q2"
+    <input class="form-control" type="number" name="q2"
            min=0 max=12>
 
 </label>
     <label id='calory'>
 食事100g辺りのcalory
-    <input type="number" name="calory"
+    <input value=100 class="form-control" type="number" name="calory"
            min=0 max=100000>
 
 </label>
 <hr>
     <input type="hidden" name="inuneko"
            value=2>
-<input type="submit" value="送信する">
+<input class="btn btn-action" type="submit" value="送信する">
 </form>
+
+            </article>
+        </div>
+    </div>
 
 <script type="text/javascript">
 
@@ -101,5 +127,4 @@
         }
     }
 </script>
-</body>
-</html>
+{% endblock %}

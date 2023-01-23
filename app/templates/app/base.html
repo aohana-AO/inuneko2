@@ -35,7 +35,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="{% static "assets/images/logo (37).png" %}" alt="Progressus HTML5 template" style="height: 5rem;"></a>
+				<a class="navbar-brand" href="{% url 'index' %}"><img src="{% static "assets/images/logo (37).png" %}" alt="Progressus HTML5 template" style="height: 5rem;"></a>
 			</div>
 
 			<div class="navbar-collapse collapse">
@@ -49,10 +49,14 @@
 							<li><a href="{% url 'sibainu_random' %}">柴犬</a></li>
 						</ul>
 					</li>
-					<li><a href="contact.html">投稿</a></li>
+                    {% if user.is_authenticated %}
+					<li><a href="{% url 'post_create' %}">投稿</a></li>
 					<li class="active"><a class="btn" href="{% url 'account_logout' %}">log out</a></li>
+                    {% else %}
+
 					<li class="active"><a class="btn" href="{% url 'account_login' %}">log in</a></li>
 					<li class="active"><a class="btn" href="{% url 'account_signup' %}">sign up</a></li>
+                    {% endif %}
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -61,6 +65,7 @@
 <div style="background-color: black; height: 100px;">
 </div>
 
+
      {% block content %}
 
 
@@ -68,9 +73,6 @@
 
 	<!-- /Intro-->
     {% endblock %}
-
-
-
 
 
 
@@ -149,11 +151,12 @@
 
 
 
+
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
+	<script src="{% static "assets/js/headroom.min.js" %}"></script>
+	<script src="{% static "assets/js/jQuery.headroom.min.js" %}"></script>
+	<script src="{% static "assets/js/template.js" %}"></script>
 </body>
 </html>
