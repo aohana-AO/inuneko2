@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',    # この行を追加
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # この行を追加
 ]
 
 ROOT_URLCONF = 'inuneko2.urls'
@@ -119,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [ BASE_DIR / 'app/static']
+STATICFILES_DIRS = [BASE_DIR / 'app/static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -134,4 +134,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-4942.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://inunekohealth.up.railway.app']
