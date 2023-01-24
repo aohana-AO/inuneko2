@@ -69,11 +69,11 @@ https://inunekohealth.up.railway.app/
     
 ## data
 
-- [カロリー計算](http://www.hidamari-hosp.com/2019/08/24/1411/)
-- [BCS](https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/petfood_guide_1808/pdf/6.pdf)
-- [サイト下地](http://gettemplate.com/)
-- [犬表示](https://dog.ceo/)
-- [柴犬表示](https://shibe.online/)
+- カロリー計算ロジック[http://www.hidamari-hosp.com/2019/08/24/1411/](http://www.hidamari-hosp.com/2019/08/24/1411/)
+- BCS計算ロジック[https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/petfood_guide_1808/pdf/6.pdf](https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/petfood_guide_1808/pdf/6.pdf)
+- サイト[http://gettemplate.com/](http://gettemplate.com/)
+- 犬表示API[https://dog.ceo/](https://dog.ceo/)
+- 柴犬表示API[https://shibe.online/](https://shibe.online/)
 
 
 # Description
