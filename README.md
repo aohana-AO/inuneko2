@@ -28,7 +28,7 @@
 
 - 一日に与える食事量をご飯のカロリー量から計算する適正食事量計算機能。
 - 外観と触感で大まかな太り具合を5段階で判断するBCS計算機能。
-- ペットの毎日の様子を写真付きで記録することのできるCRAD機能。
+- ペットの毎日の様子を写真付きで記録することのできるCRUD機能。
 - 犬と柴犬の写真をランダムで表示させる機能。
 
 以上等をまとめdjangoでwebアプリの形にしました。
@@ -49,7 +49,7 @@ https://inunekohealth.up.railway.app/
 - visual studio code
 - Windows10,11
 
-## CRAD周り
+## CRUD周り
 - django-allauth==0.51.0
 - django-widget-tweaks==1.4.12
 - oauthlib==3.2.2
@@ -104,7 +104,7 @@ https://inunekohealth.up.railway.app/
 
 
 
-## CRAD機能
+## CRUD機能
 ### ・ログイン、ログアウト、サインイン機能
 ![image](https://user-images.githubusercontent.com/84378453/214191796-dff2d262-6c99-4b82-9366-1b3e4393f62e.png)
 
