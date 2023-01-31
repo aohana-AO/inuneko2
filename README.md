@@ -9,7 +9,7 @@
 # Author
 
 - <a href="https://github.com/aohana-AO">https://github.com/aohana-AO</a>
-  - CRAD機能
+  - CRUD機能
   - バックエンド
   - フロント
   - デプロイ
