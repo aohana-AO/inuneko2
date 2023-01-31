@@ -142,8 +142,11 @@ https://inunekohealth.up.railway.app/
 ## 動物病院の情報など参考にBCS計算・適性食事量計算のロジックをプログラムに落とし込んだ。
 
 [https://github.com/hiraku0203/dog-cat_kcal/blob/main/BCS.py](https://github.com/hiraku0203/dog-cat_kcal/blob/main/BCS.py)
-BCS = str()
-def animal_bcs(BCS) :
+    
+```Python
+ BCS = str()
+    
+ def animal_bcs(BCS) :
 
     # 犬か猫か判定
     q1 = int(input("犬なら1、猫なら2を入力: "))
@@ -306,6 +309,7 @@ def animal_bcs(BCS) :
 bcs = animal_bcs(BCS)
 
 print(bcs)
+```
 
 ## Herokuの有料化、GCP・AWSの個人利用の敷居の高さからデプロイが難しくなっていた点を、Railwayの使用で対処した。
 ※RailwayへのdjangoデプロイはHerokuへのデプロイの設定を少し弄るだけで可能![image](https://user-images.githubusercontent.com/84378453/215640918-b530f2c7-8fb1-4828-8dd2-621041f8f477.png)
