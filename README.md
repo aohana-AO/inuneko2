@@ -312,7 +312,9 @@ print(bcs)
 ```
 
 ## Herokuの有料化、GCP・AWSの個人利用の敷居の高さからデプロイが難しくなっていた点を、Railwayの使用で対処した。
-※RailwayへのdjangoデプロイはHerokuへのデプロイの設定を少し弄るだけで可能![image](https://user-images.githubusercontent.com/84378453/215640918-b530f2c7-8fb1-4828-8dd2-621041f8f477.png)
+※RailwayへのdjangoデプロイはHerokuへのデプロイの設定を少し弄るだけで可能!
+
+![image](https://user-images.githubusercontent.com/84378453/215642279-afe0fdf8-4305-4dae-955d-f6f8f8e6851d.png)
 
 
 
