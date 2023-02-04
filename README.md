@@ -52,7 +52,6 @@ https://inunekohealth.up.railway.app/
 ## CRUD周り
 - django-allauth==0.51.0
 - django-widget-tweaks==1.4.12
-- oauthlib==3.2.2
 
 ## デプロイ
 - gunicorn==20.1.0
@@ -61,8 +60,6 @@ https://inunekohealth.up.railway.app/
 
 ## API処理
 - requests==2.28.1
-- requests-oauthlib==1.3.1
-- sqlparse==0.4.3
 
 ## フロント
 - js
