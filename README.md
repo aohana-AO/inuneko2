@@ -6,6 +6,23 @@
 ![image](https://user-images.githubusercontent.com/84378453/214183503-51e06ca1-d253-49fc-8ac4-77c7a6120af5.png)
 
 
+# Overview
+
+- 一日に与える食事量をご飯のカロリー量から計算する適正食事量計算機能。
+- 外観と触感で大まかな太り具合を5段階で判断するBCS計算機能。
+- ペットの毎日の様子を写真付きで記録することのできるCRUD機能。
+- 犬と柴犬の写真をランダムで表示させる機能。
+
+以上等をまとめdjangoでwebアプリの形にしました。
+
+
+
+# サイトURL
+
+https://inunekohealth.up.railway.app/
+
+
+
 # Author
 
 - <a href="https://github.com/aohana-AO">https://github.com/aohana-AO</a>
@@ -22,22 +39,6 @@
   - フロント
   - フロント・バックのエラーチェック
 
-
-
-# Overview
-
-- 一日に与える食事量をご飯のカロリー量から計算する適正食事量計算機能。
-- 外観と触感で大まかな太り具合を5段階で判断するBCS計算機能。
-- ペットの毎日の様子を写真付きで記録することのできるCRUD機能。
-- 犬と柴犬の写真をランダムで表示させる機能。
-
-以上等をまとめdjangoでwebアプリの形にしました。
-
-
-
-# サイトURL
-
-https://inunekohealth.up.railway.app/
 
 
 # Requirement
