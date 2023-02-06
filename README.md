@@ -32,12 +32,14 @@ https://inunekohealth.up.railway.app/
   - デプロイ
   - 進捗・タスク管理
   - フロント・バックのエラー修正
+  - ロゴ作成
 - <a href="https://github.com/hiraku0203">https://github.com/hiraku0203</a>
   - BCS計算
   - 適性食事量計算
   - API処理
   - フロント
   - フロント・バックのエラーチェック
+  - README書き
 
 
 
